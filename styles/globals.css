@@ -1,12 +1,9 @@
 html,
 body {
-  padding: 1em;
+  padding: 0.5em;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-
-
-
   background-color: rgb(249, 247, 247);
 }
 
@@ -18,6 +15,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
 
 .home_main>div:first-of-type {
   border-radius: 1em 1em 0em 0em !important;
@@ -50,5 +49,28 @@ a {
 
 .bi {
   color: rgb(119, 119, 119);
+}
 
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(212, 211, 211);
+
+  display: flex;
+  padding: 0.2em;
+
+}
+
+
+
+#a {
+  margin-right: auto;
+}
+
+#b {
+  width: 1em;
+  margin-left: auto;
 }
