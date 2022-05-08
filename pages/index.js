@@ -1,29 +1,66 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import React, { useState, useEffect } from 'react';
+
 
 export default function Home() {
 
-  let todoList = [
-    { id: 1, title: "u suck", time: Date.now() },
-    { id: 1, title: "u suck", time: Date.now() },
-    { id: 1, title: "u suck", time: Date.now() },
-    { id: 1, title: "u suck", time: Date.now() },
-    { id: 1, title: "u suck", time: Date.now() },
-    { id: 1, title: "u suck", time: Date.now() },
-    { id: 1, title: "u suck", time: Date.now() },
 
-  ]
+  const [data, setData] = useState("");
 
+  const [loading, setLoading] = useState("");
 
-  return (
-    <div>
-      <div className={styles.header}>
-        Todo Notes
-      </div>
+  useEffect(() => {
+    setLoading(true)
+    fetch('api/list')
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data)
+        setLoading(false)
+      })
+  }, []);
 
 
-      {todoList.map(e => <div className={styles.card_layout}>{e.id}{e.title} {new Date(e.time).toLocaleDateString("en-UK")}</div>)}
-    </div>
-  )
+  console.log(data);
+
+  let todoList = data;
+
+  if (loading == false && data) {
+    return (
+      <div>
+        <div className={styles.header}>
+          Notes
+        </div>
+        <div id='search_container'>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+          </svg>
+          <input type="search" id="search-box" name="search-box" placeholder='Search' autoComplete='off' />
+        </div>
+
+
+        <main className='home_main'>
+
+
+          {todoList.map(e => {
+            return (
+              <div key={e.id} className={styles.card_layout}>
+                <div className='card_layout_title'>{e.title}</div>
+                <div >
+                  <span>{e.dateEdited}</span>
+                  <span>{e.description}</span>
+                </div>
+
+              </div>
+            )
+          })
+
+          }
+        </main>
+      </div >
+    )
+  }
+
+
 }
