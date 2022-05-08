@@ -1,9 +1,13 @@
 html,
 body {
-  padding: 0;
+  padding: 1em;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+
+
+  background-color: rgb(249, 247, 247);
 }
 
 a {
@@ -13,4 +17,38 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.home_main>div:first-of-type {
+  border-radius: 1em 1em 0em 0em !important;
+}
+
+.home_main>div:last-of-type {
+  border-radius: 0em 0em 1em 1em !important;
+}
+
+#search-box {
+  width: 99%;
+  padding: 0.5em;
+  background-color: inherit;
+  border: none;
+  outline: none;
+  font-weight: lighter !important;
+
+}
+
+#search_container {
+  background-color: rgb(212, 211, 211);
+  margin-bottom: 1em;
+  border-radius: 0.4em;
+  padding: 0.2em 0.7em;
+  display: flex;
+
+
+  align-items: center;
+}
+
+.bi {
+  color: rgb(119, 119, 119);
+
 }

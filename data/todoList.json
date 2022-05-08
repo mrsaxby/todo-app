@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "title": "Walk dogs",
+        "description": "Swithens farm",
+        "dateCreated": "08/05/2022",
+        "dateEdited": "08/05/2022",
+        "order": 1,
+        "deleted": 0
+    },
+    {
+        "id": 2,
+        "title": "Ideas",
+        "description": "Chrome extensions",
+        "dateCreated": "08/05/2022",
+        "dateEdited": "08/05/2022",
+        "order": 1,
+        "deleted": 0
+    },
+    {
+        "id": 3,
+        "title": "Items we need to buy",
+        "description": "plates, pans, cutlery",
+        "dateCreated": "08/05/2022",
+        "dateEdited": "08/05/2022",
+        "order": 1,
+        "deleted": 0
+    },
+    {
+        "id": 4,
+        "title": "Holiday Fund",
+        "description": "Uzbekistan",
+        "dateCreated": "08/05/2022",
+        "dateEdited": "08/05/2022",
+        "order": 1,
+        "deleted": 0
+    }
+]
