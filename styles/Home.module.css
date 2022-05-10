@@ -6,14 +6,22 @@
   padding: 1em;
 }
 
+.card_layout:hover {
+  opacity: 0.6;
+}
 
 
 .card_layout .card_layout_title {
   font-weight: bold;
-  color: red;
+  margin-bottom: 0.2em;
 }
 
-
+.card_layout_description,
+.card_layout_date {
+  margin-right: 1em;
+  color: rgb(212, 211, 211);
+  font-size: 0.8em;
+}
 
 
 
