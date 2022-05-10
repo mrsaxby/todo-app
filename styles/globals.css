@@ -72,8 +72,15 @@ a {
   align-self: center;
 }
 
-#b {
 
+#a {
+  align-self: center;
+  cursor: pointer;
+}
+
+#b {
+  align-self: center;
+  cursor: pointer;
   font-size: 1.5em;
 
 }
