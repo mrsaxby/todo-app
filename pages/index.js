@@ -32,23 +32,38 @@ export default function Home() {
           <input type="search" id="search-box" name="search-box" placeholder='Search' autoComplete='off' autoFocus="autofocus" onChange={e => search(e)} />
         </div>
 
-        <main className='home_main'>
+        <main>
           {currentList.map(item => {
             return (
-              <a href={"list/" + item.id} key={item.id}>
-                <div className={styles.card_layout}>
+              <div className={styles.card_layout} key={item.id}>
 
-                  <div className={styles.card_layout_title}>{item.starred == "Y" ? <span className='star'>&#9733;</span> : ""}{item.title}</div>
-
-                  <div>
-                    <span className={styles.card_layout_date}>{item.dateEdited}</span>
-                    <span className={styles.card_layout_description}>{item.description}</span>
-                  </div>
+                <div className="icon_container" style={item.starred == "N" ? { "color": "black" } : { "color": "yellow" }} onClick={e => {
+                  fetch('../api/list', {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                      "id": item.id,
+                      "starred": item.starred == "N" ? "Y" : "N"
+                    })
+                  });
+                  location = '/';
+                }}>
+                  ☆
                 </div>
-              </a>
+
+                {item.category != null ? <div className="icon_container" style={{ "color": item.category.colour }}>{item.category.icon}</div> : <></>}
+                <a href={"list/" + item.id}>
+                  <div className='list_details_container'>
+                    <div className={styles.card_layout_title}>{item.title}</div>
+                    <div>
+                      <span className={styles.card_layout_date}>{item.dateEdited.split(',')[0]}</span>
+                      <span className={styles.card_layout_description}>{item.description.split(" ").slice(0, 10).map(e => e + " ")}</span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
             )
           })
-
           }
         </main>
 
@@ -61,7 +76,6 @@ export default function Home() {
               setcurrentList(todoList.filter(item => item.deleted == "N"));
             }
           }}>
-
 
             {currentList.filter(item => item.deleted == "Y").length == 0 ?
               <div>
@@ -90,7 +104,7 @@ export default function Home() {
               <div>+</div>
             </a>
           </div>
-        </footer >
+        </footer>
       </div >
     )
   }
@@ -100,12 +114,12 @@ export default function Home() {
 
 
   function search(e) {
-    let listItems = document.querySelectorAll('.home_main > a');
+    let listItems = document.querySelectorAll('main>div');
 
     if (e.target.value.length > 0) {
-      todoList.forEach(function (item, index) {
+      currentList.forEach(function (item, index) {
         if (item.title.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase())) {
-          listItems[index].style.display = 'block';
+          listItems[index].style.display = 'flex';
         }
         else {
           listItems[index].style.display = 'none';
@@ -114,10 +128,10 @@ export default function Home() {
       });
     }
     else {
-      listItems.forEach(item => item.style.display = "block");
+      listItems.forEach(item => item.style.display = "flex");
     }
 
-    document.querySelector('#footer_notes_counter').innerText = "Notes: " + document.querySelectorAll('.home_main>a:not([style*="display: none"])').length;
+    document.querySelector('#footer_notes_counter').innerText = "Notes: " + document.querySelectorAll('main>div:not([style*="display: none"])').length;
   }
 
 

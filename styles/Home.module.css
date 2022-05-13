@@ -4,9 +4,16 @@
   border-bottom: 1px solid rgb(233, 233, 233);
   word-break: break-word;
   padding: 1em;
+  display: flex;
+
 }
 
-.card_layout:hover {
+
+.card_layout>a {
+  width: 100%;
+}
+
+.card_layout>a:hover {
   opacity: 0.6;
 }
 
@@ -14,6 +21,7 @@
 .card_layout .card_layout_title {
   font-weight: bold;
   margin-bottom: 0.2em;
+
 }
 
 .card_layout_description,

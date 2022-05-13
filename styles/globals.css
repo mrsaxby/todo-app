@@ -17,15 +17,6 @@ a {
 }
 
 
-
-/* .home_main>a>div:last-of-type {
-  border-radius: 1em 1em 0em 0em !important;
-}
-
-.home_main>a>div:last-of-type {
-  border-radius: 0em 0em 1em 1em !important;
-} */
-
 #search-box {
   width: 99%;
   padding: 0.5em;
@@ -85,7 +76,7 @@ a {
 
 }
 
-#test {
+#title {
   padding: 1em;
   font-size: 1.2em;
   font-weight: bold;
@@ -98,8 +89,10 @@ a {
 }
 
 
-.star {
+.icon_container {
 
-  color: rgba(255, 242, 1, 0.978);
   font-size: 1.3em;
+  align-self: center;
+
+  min-width: 2em;
 }

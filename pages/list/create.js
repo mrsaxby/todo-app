@@ -1,20 +1,14 @@
+
 import React, { useState, useEffect } from 'react';
 
-let todoList = require('../../data/todoList.json');
-
-export default function Create() {
+export default function List() {
 
     const [todoList, settodoList] = useState("");
-
     const [loading, setLoading] = useState("");
-
-
-    const [selectedImage, setSelectedImage] = useState(null);
-
 
     useEffect(() => {
         setLoading(true)
-        fetch('/api/list')
+        fetch('../api/list')
             .then((res) => res.json())
             .then((todoList) => {
                 settodoList(todoList)
@@ -22,42 +16,25 @@ export default function Create() {
             })
     }, []);
 
+    //const $$ = document.querySelector('#category').b
 
     return (
         <div>
-
-            <textarea style={{ "height": "500px", "width": "100%", "border": "none", "outline": "none" }} autoFocus="autofocus"/*  onChange={e => test(e)} */>
-
-            </textarea>
-            <p>Attach Image</p>
-            {selectedImage && (
-                <div>
-                    <img alt="not found" width={"250px"} src={URL.createObjectURL(selectedImage)} />
-
-                    <button onClick={() => setSelectedImage(null)}>Remove</button>
-                </div>
-            )}
-
-            <input
-                type="file"
-                name="myImage"
-                onChange={(event) => {
-                    console.log(event.target.files[0]);
-                    setSelectedImage(event.target.files[0]);
-                }}
-            />
-
-
-            <div>
-
-                <button onClick={create()}>
-                    Create
-                </button>
-                <div>
-                    Created at: <span id="createAt"></span>
-                </div>
-
+            <input id="title" placeholder='Title' autoComplete='off' />
+            <div id="description" style={{ "height": "500px", "width": "100%", "border": "none", "outline": "none", "backgroundColor": "white" }} contentEditable={true} suppressContentEditableWarning={true} >
             </div>
+
+            <select id="category" style={{ "fontSize": "2em" }} >
+                <option value="---">---</option>
+                {categories.map(cat => <option value={cat.id}>{cat.icon}</option>)}
+            </select>
+
+            <input type="color" id="favcolor" name="favcolor" defaultValue="#000000" onChange={e => {
+                document.querySelector('#category').style.color = e.target.value;
+            }
+
+
+            } />
 
             <footer className="footer">
                 <div id="a">
@@ -65,71 +42,59 @@ export default function Create() {
                         &larr;
                     </a>
                 </div>
+                <div id="footer_notes_counter">
+                </div>
+                <div id="b" onClick={e => {
 
-            </footer>
-        </div>
+                    let newObj = {
+                        "id": todoList.length ? Math.max(...todoList.map(x => x.id)) + 1 : 1,
+                        "title": document.querySelector('#title').value,
+                        "description": document.querySelector('#description').innerText,
+                        "dateCreated": new Date().toLocaleString('en-GB'),
+                        "dateEdited": new Date().toLocaleString('en-GB'),
+                        "deleted": "N",
+                        "starred": "N"
+                    };
+
+                    if (document.querySelector('#category').value != "---") {
+                        let selectedCat = categories.find(i => i.id == document.querySelector('#category').value);
+                        newObj.category = {
+                            id: selectedCat.id,
+                            type: selectedCat.type,
+                            icon: selectedCat.icon,
+                            colour: document.querySelector('#favcolor').value
+                        }
+                    }
+
+                    fetch('../api/list', {
+                        method: 'POST',
+                        body: JSON.stringify(newObj)
+                    });
+
+                    location = '/';
+
+
+                }}>
+                    +
+                </div>
+            </footer >
+        </div >
 
 
     )
 
 
-
-
-    function create() {
-        if (loading == false && todoList) {
-
-            let obj = {};
-            obj.id = todoList.length ? Math.max(...todoList.map(x => x.id)) + 1 : 1;
-            obj.dateCreated = new Date().toISOString();
-            obj.dateUpdated = new Date().toISOString();
-
-
-            console.table(obj);
-
-            // fs.writeFileSync('data/users.json', JSON.stringify(users, null, 4));
-
-        }
-
-    }
-
-    /* function create(item) {
-        // generate new user id
-        item.id = users.length ? Math.max(...users.map(x => x.id)) + 1 : 1;
-
-        // set date created and updated
-        user.dateCreated = new Date().toISOString();
-        user.dateUpdated = new Date().toISOString();
-
-        // add and save user
-        users.push(user);
-        saveData();
-    }
-
-    function update(id, params) {
-        const user = users.find(x => x.id.toString() === id.toString());
-
-        // set date updated
-        user.dateUpdated = new Date().toISOString();
-
-        // update and save
-        Object.assign(user, params);
-        saveData();
-    }
-
-    // prefixed with underscore '_' because 'delete' is a reserved word in javascript
-    function _delete(id) {
-        // filter out deleted user and save
-        users = users.filter(x => x.id.toString() !== id.toString());
-        saveData();
-
-    }
-
-    // private helper functions
-
-    function saveData() {
-        fs.writeFileSync('data/users.json', JSON.stringify(users, null, 4));
-    } */
-
-
-
 }
+
+let categories = [
+    { id: 1, type: "Sun", icon: "\u2600" },
+    { id: 2, type: "Phone", icon: "\u260f" },
+    { id: 3, type: "Shamrock", icon: "\u2618" },
+    { id: 4, type: "Radioactive", icon: "\u2622" },
+    { id: 5, type: "Peace", icon: "\u262e" },
+    { id: 6, type: "Yin Yang", icon: "\u262f" },
+    { id: 7, type: "Happy Face", icon: "\u263a" },
+    { id: 8, type: "Sad Face", icon: "\u2639" },
+    { id: 9, type: "Music", icon: "\u266b" },
+    { id: 10, type: "Scales", icon: "\u2696" }
+];

@@ -7,18 +7,32 @@ export default async function handler(req, res) {
 
     switch (req.method) {
         case 'GET':
-            if (req.query.deleted) {
-
-                todoList = todoList.filter(item => item.deleted === req.query.deleted)
-            }
-
             res.status(200).json(todoList);
             break;
 
-        case 'DELETE':
-            todoList.find(item => item.id.toString() === req.body.toString()).deleted = 'Y';
+        case 'PUT':
+            console.log(req.body);
+            let obbj = JSON.parse(req.body);
+            console.log(obbj);
+
+            let item = todoList.find(item => item.id == obbj.id);
+
+            Object.assign(item, obbj);
             saveData(todoList);
-            res.status(200).json({ status: "deleted" });
+            res.status(200).json({ status: "Updated" });
+            break;
+
+
+        case 'POST':
+            todoList.push(JSON.parse(req.body));
+            saveData(todoList);
+            res.status(200).json({ status: "Created" });
+            break;
+
+        case 'DELETE':
+            todoList.find(item => item.id == JSON.parse(req.body).id).deleted = 'Y';
+            saveData(todoList);
+            res.status(200).json({ status: "Deleted" });
             break;
 
 
